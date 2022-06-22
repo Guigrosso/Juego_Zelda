@@ -1,4 +1,4 @@
-﻿import random
+import random
 import pygame
 import numpy
 import math
@@ -98,7 +98,7 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
     pygame.display.set_icon(icon)
 
 
-    screen = pygame.display.set_mode((ancho, alto))
+    pantalla = pygame.display.set_mode((ancho, alto))
 
 
     #para matriz
@@ -124,7 +124,7 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
             global matrizTablero
 
             if aleatorio == True:
-                matrizTablero = tablero(screen, ancho, alto)
+                matrizTablero = tablero(pantalla, ancho, alto)
 
 
                 #Asignacion posicion puerta
@@ -138,8 +138,8 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
                 llave_x = posLlave[0]
                 llave_y = posLlave[1]
 
-                screen.blit(llave, ((llave_x*50)+5, (llave_y*50)+5))
-                screen.blit(puerta, (puerta_x-25 , puerta_y-9))
+                pantalla.blit(llave, ((llave_x*50)+5, (llave_y*50)+5))
+                pantalla.blit(puerta, (puerta_x-25 , puerta_y-9))
 
                 #Asignacion posicion link
 
@@ -150,16 +150,15 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
 
 
                 #Tomar fondo del juego
-                screenshot = screen.copy()
-                screen.blit(screenshot, (0, 0))
+                screenshot = pantalla.copy()
+                pantalla.blit(screenshot, (0, 0))
 
 
-                screen.blit(link, (link_x * 50, link_y * 50))
+                pantalla.blit(link, (link_x * 50, link_y * 50))
                 matrizTablero[link_y][link_x] = 2
                 matrizTablero[llave_y][llave_x] = 4
 
-                #Asignacion posici
-                # on puerta
+                #Asignacion posicion puerta
 
                 matrizTablero[math.ceil(puerta_y*2/100)][math.ceil(puerta_x*2/100)] = 5
 
@@ -174,7 +173,7 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
             else:
                 matrizTablero = matrizPersonalizada
                 matrizGasto = numpy.zeros((len(matrizTablero),len(matrizTablero[0])))
-                personalizado = tableroPersonalizado(matrizPersonalizada, screen, suelo, obstaculo, llave, puerta, link, player)
+                personalizado = tableroPersonalizado(matrizPersonalizada, pantalla, suelo, obstaculo, llave, puerta, link, player)
                 #CrearFantasmasPersonalizados( matrizTablero, ancho,alto)
 
                 link_x = personalizado[0]
@@ -189,9 +188,9 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
                 cantidadfantasmas = personalizado[9]
                 fantasmasimg = personalizado[10]
 
-                screenshot = screen.copy()
-                screen.blit(screenshot, (0, 0))
-                screen.blit(link, (link_x, link_y))
+                screenshot = pantalla.copy()
+                pantalla.blit(screenshot, (0, 0))
+                pantalla.blit(link, (link_x, link_y))
 
         if link_x == meta_x and link_y == meta_y:
             matrizGasto = numpy.zeros((len(matrizTablero),len(matrizTablero[0])))
@@ -239,8 +238,8 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
             matrizTablero = movimiento[2]
             matrizGasto = movimiento[3]
             valorAnterior = movimiento[4]
-            screen.blit(screenshot, (0, 0))
-            screen.blit(link, (link_x * 50, link_y * 50))
+            pantalla.blit(screenshot, (0, 0))
+            pantalla.blit(link, (link_x * 50, link_y * 50))
 
 
             # mover y pintar fantasmas
@@ -253,7 +252,7 @@ def main(dimension, aleatorio, matrizPersonalizada, anchoPersonalizado, altoPers
                 (fantasmasimgrect[p], a) = \
                     Profundidadsinciclos(fantasmasimgrect[p], matrizTablero, ancho, alto, link_y, link_x, llave_y,
                                          llave_x,puerta_y, puerta_x)
-                screen.blit(fantasmasimg[p], fantasmasimgrect[p])
+                pantalla.blit(fantasmasimg[p], fantasmasimgrect[p])
 
 
 
@@ -677,16 +676,13 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
         expandir = True
         soyraiz = True
 
-        #print("Soy la Raiz, me pongo, pongo mis hijos y mando mi primer hijo para repetir este metodo y seguir creando el arbol ")
-
-
     #validar si ya estoy de ancestro.
     elif soyancestro == True:
         #print("YA ESTA REPETIDO , me quito de la lista y envio la lista y a mi hermano.")
         #me quito
         sinquitar =  ultimoshijos[ultimoshijos.__len__() - 1]
         ultimoshijos = ultimoshijos[6:ultimoshijos.__len__() - 1]
-        twohijo=""
+        segunhijo=""
         hijosanteriores=""
 
         abuelosunicos=False
@@ -763,17 +759,17 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
                 #si segundo es de la forma (a,b)
                 if hijosanteriores[10] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[6:11]
+                    segunhijo = hijosanteriores[6:11]
 
                 #si segundo es de la forma (a,bc) o (ab,c)
                 elif hijosanteriores[11] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[6:12]
+                    segunhijo = hijosanteriores[6:12]
 
                 #si el segundo es de la forma (ab,cd)
                 elif hijosanteriores[12] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[6:13]
+                    segunhijo = hijosanteriores[6:13]
 
                 # me quito
                 ultimoshijos = hijosanteriores[6:hijosanteriores.__len__() - 1]
@@ -786,17 +782,17 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
                 # si segundo es de la forma (a,b)
                 if hijosanteriores[11] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[7:12]
+                    segunhijo = hijosanteriores[7:12]
 
                 # si segundo es de la forma (a,bc) o (ab,c)
                 elif hijosanteriores[12] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[7:13]
+                    segunhijo = hijosanteriores[7:13]
 
                 # si el segundo es de la forma (ab,cd)
                 elif hijosanteriores[13] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[7:14]
+                    segunhijo = hijosanteriores[7:14]
 
                 # me quito
                 ultimoshijos = hijosanteriores[7:hijosanteriores.__len__() - 1]
@@ -809,17 +805,17 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
                 # si segundo es de la forma (a,b)
                 if hijosanteriores[12] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[8:13]
+                    segunhijo = hijosanteriores[8:13]
 
                 # si segundo es de la forma (a,bc) o (ab,c)
                 elif hijosanteriores[13] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[8:14]
+                    segunhijo = hijosanteriores[8:14]
 
                 # si el segundo es de la forma (ab,cd)
                 elif hijosanteriores[14] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[8:15]
+                    segunhijo = hijosanteriores[8:15]
 
                 # me quito
                 ultimoshijos = hijosanteriores[8:hijosanteriores.__len__() - 1]
@@ -841,7 +837,7 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
             print(arbolenviar)
             print(" El siguiente a enviar es : " + twohijo)"""
 
-            return Libres(posf,posc,twohijo,matrixobst,ancho,alto,arbolenviar,linkf,linkc)
+            return Libres(posf,posc,segunhijo,matrixobst,ancho,alto,arbolenviar,linkf,linkc)
 
 
         #si es hijo unico , y el nivel anterior tiene varios hijos
@@ -860,17 +856,17 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
                 #si segundo es de la forma (a,b)
                 if hijosanteriores[10] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[6:11]
+                    segunhijo = hijosanteriores[6:11]
 
                 #si segundo es de la forma (a,bc) o (ab,c)
                 elif hijosanteriores[11] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[6:12]
+                    segunhijo = hijosanteriores[6:12]
 
                 #si el segundo es de la forma (ab,cd)
                 elif hijosanteriores[12] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[6:13]
+                    segunhijo = hijosanteriores[6:13]
 
                 # me quito
                 ultimoshijos = hijosanteriores[6:hijosanteriores.__len__() - 1]
@@ -883,17 +879,17 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
                 # si segundo es de la forma (a,b)
                 if hijosanteriores[11] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[7:12]
+                    segunhijo = hijosanteriores[7:12]
 
                 # si segundo es de la forma (a,bc) o (ab,c)
                 elif hijosanteriores[12] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[7:13]
+                    segunhijo = hijosanteriores[7:13]
 
                 # si el segundo es de la forma (ab,cd)
                 elif hijosanteriores[13] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[7:14]
+                    segunhijo = hijosanteriores[7:14]
 
                 # me quito
                 ultimoshijos = hijosanteriores[7:hijosanteriores.__len__() - 1]
@@ -906,17 +902,17 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
                 # si segundo es de la forma (a,b)
                 if hijosanteriores[12] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[8:13]
+                    segunhijo = hijosanteriores[8:13]
 
                 # si segundo es de la forma (a,bc) o (ab,c)
                 elif hijosanteriores[13] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[8:14]
+                    segunhijo = hijosanteriores[8:14]
 
                 # si el segundo es de la forma (ab,cd)
                 elif hijosanteriores[14] == ")":
                     # selecciono el siguiente hijo a enviar
-                    twohijo = hijosanteriores[8:15]
+                    segunhijo = hijosanteriores[8:15]
 
                 # me quito
                 ultimoshijos = hijosanteriores[8:hijosanteriores.__len__() - 1]
@@ -933,7 +929,7 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
             print(arbolenviar)
             print(" El siguiente a enviar es : " + twohijo)"""
 
-            return Libres(posf,posc,twohijo,matrixobst,ancho,alto,arbolenviar,linkf,linkc)
+            return Libres(posf,posc,segunhijo,matrixobst,ancho,alto,arbolenviar,linkf,linkc)
 
 
         #si tengo mas hermanos
@@ -975,17 +971,17 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
             # si es de la forma (a,b)
             if libres[5] == ")":
                 # selecciono el hijo a enviar
-                twohijo = libres[1:6]
+                segunhijo = libres[1:6]
 
             # si es de la forma (a,bc) o (ab,c)
             elif libres[6] == ")":
                 # selecciono el hijo a enviar
-                twohijo = libres[1:7]
+                segunhijo = libres[1:7]
 
             # si es de la forma (ab,cd)
             elif libres[7] == ")":
                 # selecciono el hijo a enviar
-                twohijo = libres[1:8]
+                segunhijo = libres[1:8]
 
 
             arbolmatrix[arbolmatrix.__len__() - 1] = libres
@@ -997,7 +993,7 @@ def Libres(posf,posc,hentrante, matrixobst, ancho , alto, arbol, linkf, linkc):
             print(arbolenviar)
             print(" El hermano siguiente es : " + twohijo)"""
 
-            return Libres(posf, posc, twohijo, matrixobst, ancho, alto, arbolenviar, linkf, linkc)
+            return Libres(posf, posc, segunhijo, matrixobst, ancho, alto, arbolenviar, linkf, linkc)
 
 
     if soyraiz == True or (soymeta == False and soyancestro == False and soyraiz == False):
@@ -1510,13 +1506,3 @@ def MoverFantasma(fantasma, matrixobst, ancho , alto):
             (filapuerta, columnapuerta) = (posicionfnueva, posicioncnueva)
     else:
         matrixobst[posicionfnueva][posicioncnueva] = 3
-
-
-    return fantasma, matrixobst
-
-
-
-if __name__ == '__main__':
-
-    gui = GUI()
-    #main("600 x 400", True, [], 0, 0)
