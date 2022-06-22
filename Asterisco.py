@@ -31,6 +31,7 @@ class Asterisco:
                 rigth = matriz[link_y][link_x+1] + Asterisco.calulo_manhatan(link_x+1, link_y, meta_x, meta_y)
                 mov_disp+=[rigth]
 
+                
             else:
                 rigth = None
 
