@@ -16,7 +16,6 @@ class GUI:
         label1 = Label(frame, text="Menú del juego", width=100, height=25, font=("", 15), anchor='nw')
         label1.place(x=5, y=5)
 
-
         label2 = Label(frame, text="Dimensiones de la patalla", width=100, height=25, font=("", 12), anchor='nw')
         label2.place(x=15, y=50)
 
@@ -70,7 +69,6 @@ class GUI:
         btnPerso = Button(frame, text="Seleccionar archivo", width=44,  command=personalizar)
         btnPerso.place(x=15, y=130)
 
-        # radio button
         r1 = Radiobutton(raiz, text="Normal",  value=1)
         r2 = Radiobutton(raiz, text="Dificil",  value=0)
         r1.place(x=240, y=170)
