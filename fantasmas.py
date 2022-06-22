@@ -552,6 +552,7 @@ def Profundidadsinciclos(fantasma, matrixobst, ancho , alto, arbol, linkf,linkc)
             matrixobst[posicionfnueva][posicioncnueva] = 5
             (filapuerta, columnapuerta) = (posicionfnueva, posicioncnueva)
     else:
+        
         matrixobst[posicionfnueva][posicioncnueva] = 3
 
     return fantasma, matrixobst
